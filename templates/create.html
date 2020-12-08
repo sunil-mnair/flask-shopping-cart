@@ -1,0 +1,28 @@
+{% extends 'base.html'%}
+
+{% block content %}
+
+    {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+    <form action="/create" method="POST">
+        <label>Name</label>
+        <input type="text" name="name">
+
+        <label>Description</label>
+        <input type="text" name="desc">
+
+        <label>Price</label>
+        <input type="number" name="price">
+
+        <input type="submit" value="Submit">
+    </form>
+
+{% endblock %}
