@@ -12,7 +12,8 @@ from forms import *
 
 app = Flask(__name__)
 
-app.config['MONGO_URI'] = "mongodb+srv://penrosedb:code3210@cluster0.kdszu.mongodb.net/penroselearning2021?retryWrites=true&w=majority"
+# make sure to update the username and password
+app.config['MONGO_URI'] = "mongodb+srv://username:password@cluster0.kdszu.mongodb.net/penroselearning2021?retryWrites=true&w=majority"
 app.secret_key = "MongoDB"
 
 mongo = PyMongo(app)
