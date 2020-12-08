@@ -2,12 +2,11 @@ import os
 from flask import Flask,render_template,request,flash
 from flask_pymongo import PyMongo
 
+# Enables the Admin View
 from flask_admin import Admin,AdminIndexView
 from flask_admin.contrib.pymongo import ModelView
 
-from flask_wtf import FlaskForm
-from wtforms import form, fields
-
+# Import the forms
 from forms import *
 
 app = Flask(__name__)
@@ -18,11 +17,14 @@ app.secret_key = "MongoDB"
 
 mongo = PyMongo(app)
 
+# defines the Form fields required for the Admin View
 class ProductView(ModelView):
     column_list = ('name', 'description','price')
     form = ProductForm
 
 admin = Admin(app,template_mode='bootstrap3')
+
+# creates an Admin View for the Products collection
 admin.add_view(ProductView(mongo.db.products))
 
 
@@ -37,21 +39,21 @@ def view():
     
     return render_template("view.html",products = myproducts.find())
 
-@app.route("/create",methods=["GET","POST"])
-def create():
+# @app.route("/create",methods=["GET","POST"])
+# def create():
 
-    if request.method == "POST":
+#     if request.method == "POST":
 
-        name = request.form["name"]
-        desc = request.form["desc"]
-        price = int(request.form["price"])
+#         name = request.form["name"]
+#         desc = request.form["desc"]
+#         price = int(request.form["price"])
 
-        myproducts = mongo.db.products
-        myproducts.insert({'name':name,"description":desc,"price":price})
+#         myproducts = mongo.db.products
+#         myproducts.insert({'name':name,"description":desc,"price":price})
 
-        flash(f'{name} has been successfully saved')
+#         flash(f'{name} has been successfully saved')
         
-    return render_template("create.html")
+#     return render_template("create.html")
 
 
 if __name__ == "__main__":
