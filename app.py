@@ -93,7 +93,6 @@ def add_to_cart(id):
     return render_template("view.html",products=products,cart=cart)
 
 
-
 @app.route("/cart",methods=['GET','POST'])
 def cart():
     

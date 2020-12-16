@@ -14,7 +14,7 @@
 
     <div class="product">
         {% for p,qty in product.items() %}
-            <div class="productimage" style="background-image:url('https://images.pexels.com/photos/4261260/pexels-photo-4261260.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500');background-size:cover">
+            <div class="productimage" style="background-image:url('/static/images/{{ p.picture }}');background-size:cover">
             </div>
             <div class="productname">
                 <h4>{{ p.name }} | Qty {{ qty }} | AED {{ p.price * qty }}</h4>
@@ -28,10 +28,6 @@
     </div>
     
 {% endfor %}
-<h1>Order Total: AED {{ total.value }}</h1>
-
-
-
 
 {% else %}
 
@@ -45,6 +41,7 @@
 {% if final_cart %}
 
 <div class="orderform">
+    <h1>Order Total: AED {{ total.value }}</h1>
     <h2>Confirm Order</h2>
     <form action="/send_order_confirmation" method="POST">
         <label for="customername">Customer Name:</label>

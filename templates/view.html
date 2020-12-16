@@ -10,7 +10,7 @@
     {% for product in products %}
        
             <div class="product">
-                <div class="productimage" style="background-image:url('https://images.pexels.com/photos/4261260/pexels-photo-4261260.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500');background-size:cover">
+                <div class="productimage" style="background-image:url('/static/images/{{ product.picture }}');background-size:cover">
                 </div>
                 <div class="productname">
                     <h4>{{product.name}} | AED {{product.price}}</h4>

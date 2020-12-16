@@ -42,8 +42,9 @@ body{
  .header{
    grid-area: h;
    background-color: cyan;
-   background-image:url('https://images.pexels.com/photos/952436/pexels-photo-952436.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500');
+   background-image:url('https://images.pexels.com/photos/1124466/pexels-photo-1124466.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500');
    background-size: cover;
+   background-position: center;
 
    display: flex;
    flex-direction: column;
