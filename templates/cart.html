@@ -1,0 +1,70 @@
+{% extends 'base.html'%}
+
+
+
+{% block content %}
+
+<div class="content">
+
+    <div class="productlist">
+
+{% if final_cart %}
+{% set total = namespace(value=0) %}
+{% for product in final_cart %}
+
+    <div class="product">
+        {% for p,qty in product.items() %}
+            <div class="productimage" style="background-image:url('https://images.pexels.com/photos/4261260/pexels-photo-4261260.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500');background-size:cover">
+            </div>
+            <div class="productname">
+                <h4>{{ p.name }} | Qty {{ qty }} | AED {{ p.price * qty }}</h4>
+                <p>{{ p.description }}</p>
+                {% set total.value = total.value + (p.price * qty) %}
+                <a class="add" href="/remove_from_cart/{{p.id}}">Remove from Cart</a>
+            </div>
+            
+            {% endfor %}
+            
+    </div>
+    
+{% endfor %}
+<h1>Order Total: AED {{ total.value }}</h1>
+
+
+
+
+{% else %}
+
+<p>Your Cart is Empty</p>
+
+{% endif %}
+
+
+</div>
+
+{% if final_cart %}
+
+<div class="orderform">
+    <h2>Confirm Order</h2>
+    <form action="/send_order_confirmation" method="POST">
+        <label for="customername">Customer Name:</label>
+        <input type="name" name="customername">
+
+        <label for="customerphone">Phone:</label>
+        <input type="name" name="customerphone">
+
+        <label for="customeremail">Email:</label>
+        <input type="name" name="customeremail">
+
+        <label for="customeraddress">Address:</label>
+        <textarea name="customeraddress" id="" cols="30" rows="10"></textarea>
+
+        <input type="submit" value="Confirm Order">
+    </form>
+</div>
+
+{% endif %}
+
+
+
+{% endblock %}

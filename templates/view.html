@@ -2,14 +2,26 @@
 
 {% block content %}
 
-    <table border=1>
-        {% for product in products %}
-        <tr>
-            <td>{{ product.name }}</td>
-            <td>{{ product.description }}</td>
-            <td>{{ product.price }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+
+    <div class="content">
+
+    <div class="productlist">
+
+    {% for product in products %}
+       
+            <div class="product">
+                <div class="productimage" style="background-image:url('https://images.pexels.com/photos/4261260/pexels-photo-4261260.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500');background-size:cover">
+                </div>
+                <div class="productname">
+                    <h4>{{product.name}} | AED {{product.price}}</h4>
+                    <p>{{product.description}}</p> 
+                    <a class="add" href="/add_to_cart/{{product.id}}">Add to Cart</a>
+                </div>
+            </div>
+    {% endfor %}
+</div>
+        </div>
+
+   
 
 {% endblock %}

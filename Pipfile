@@ -11,6 +11,9 @@ pymongo = {extras = ["srv"], version = "*"}
 flask-admin = "*"
 flask-wtf = "*"
 wtforms = "*"
+flask-sqlalchemy = "*"
+pytz = "*"
+flask-mail = "*"
 
 [requires]
 python_version = "3.7"
