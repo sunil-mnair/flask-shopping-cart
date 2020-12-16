@@ -19,9 +19,9 @@ app.permanent_session_lifetime = timedelta(days=1)
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_SSL'] = True
-app.config['MAIL_USERNAME'] = 'penroselearning@gmail.com'
-app.config['MAIL_PASSWORD'] = 'pRL@6543210'
-app.config['MAIL_DEFAULT_SENDER'] = 'penroselearning@gmail.com'
+app.config['MAIL_USERNAME'] = 'youremail@gmail.com'
+app.config['MAIL_PASSWORD'] = 'email_password'
+app.config['MAIL_DEFAULT_SENDER'] = 'youremail@gmail.com'
 
 mail = Mail(app)
 
