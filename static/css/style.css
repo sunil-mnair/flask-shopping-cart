@@ -4,7 +4,7 @@ body{
  .container{
   height: 100vh;
    display: grid;
-   grid-template-rows: 10% 40% auto;
+   grid-template-rows: 10% 50% auto;
    
    grid-template-areas:
    "n"
@@ -42,14 +42,14 @@ body{
  .header{
    grid-area: h;
    background-color: cyan;
-   background-image:url('https://images.pexels.com/photos/1124466/pexels-photo-1124466.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500');
+   background-image:url('https://images.pexels.com/photos/278918/pexels-photo-278918.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500');
    background-size: cover;
    background-position: center;
 
    display: flex;
    flex-direction: column;
    justify-content: center; /* horizontal alignment */
-    align-items: center; /* vertical alignment */
+   align-items: center; /* vertical alignment */
  }
  
  .content{

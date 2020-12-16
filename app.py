@@ -1,13 +1,11 @@
 import os
+import json
+from jinja2 import Markup
 from flask import Flask,render_template,request,flash,session,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 
 # Libary for Sending Emails
 from flask_mail import Mail,Message
-
-# Enables the Admin View
-from flask_admin import Admin,AdminIndexView
-from flask_admin.contrib.sqla import ModelView
 
 from datetime import timedelta
 
@@ -37,11 +35,12 @@ db = SQLAlchemy(app)
 
 from models import *
 
-admin = Admin(app,template_mode='bootstrap3')
 
-# creates an Admin View for the Products collection
-admin.add_view(AllModelView(Products,db.session))
+def read_json_file():
+    with open('products.json') as file:
+        data = json.load(file)
 
+    return data
 
 def session_check():
     session.permanent = True
@@ -61,36 +60,41 @@ def show_cart(cart):
 @app.route("/")
 def index():
     session_check()
+    
+    products = read_json_file()
+
+    
     return render_template("index.html")
 
 @app.route("/view")
 def view():
     session_check()
-    products = Products.query.all()
+
+    products = read_json_file()
     cart = session['cart']
    
-    return render_template("view.html",products=products,cart=cart)
+    return render_template("view.html",products=products["products"],cart=cart)
 
 @app.route("/add_to_cart/<int:id>",methods=['GET','POST'])
 def add_to_cart(id):
     session_check()
-    products = Products.query.all()
+    products = read_json_file()
 
-    product = Products.query.get_or_404(id)
+    product = [product for product in products["products"] if product["id"]== str(id)][0]
     
-    if not any(str(product.id) in d for d in session['cart']):
-        session['cart'].append({str(product.id):1})
-    
-    elif any(str(product.id) in d for d in session['cart']):
+    if not any(str(product["id"]) in d for d in session['cart']):
+        session['cart'].append({str(product["id"]):1})
+
+    elif any(str(product["id"]) in d for d in session['cart']):
         for d in session['cart']:
-            qty = [(k,q) for k,q in d.items() if k == str(product.id)]
+            qty = [(k,q) for k,q in d.items() if k == str(product["id"])]
             if qty:
                 qty = qty[0][1] + 1
-            d.update((k, qty) for k, v in d.items() if k == str(product.id))
+            d.update((k, qty) for k, v in d.items() if k == str(product["id"]))
 
     cart = session['cart']
     
-    return render_template("view.html",products=products,cart=cart)
+    return render_template("view.html",products=products["products"],cart=cart)
 
 
 @app.route("/cart",methods=['GET','POST'])

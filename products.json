@@ -1,0 +1,25 @@
+{
+    "products":[
+        {
+            "id" : "1",
+            "name" : "Monopoly",
+            "description" : "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia sed consequatur eum corrupti",
+            "picture" : "pic1.jpeg",
+            "price"     : 100
+        },
+        {
+            "id" : "2",
+            "name" : "Chess",
+            "description" : "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia sed consequatur eum corrupti",
+            "picture" : "pic2.jpeg",
+            "price"     : 120
+        },
+        {
+            "id" : "3",
+            "name" : "Scrabble",
+            "description" : "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia sed consequatur eum corrupti",
+            "picture" : "pic3.jpeg",
+            "price"     : 130
+        }
+    ]
+}
