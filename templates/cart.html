@@ -13,17 +13,17 @@
 {% for product in final_cart %}
 
     <div class="product">
-        {% for p,qty in product.items() %}
-            <div class="productimage" style="background-image:url('/static/images/{{ p.picture }}');background-size:cover">
+       
+            <div class="productimage" style="background-image:url('/static/images/{{ product["picture"] }}');background-size:cover">
             </div>
             <div class="productname">
-                <h4>{{ p.name }} | Qty {{ qty }} | AED {{ p.price * qty }}</h4>
-                <p>{{ p.description }}</p>
-                {% set total.value = total.value + (p.price * qty) %}
-                <a class="add" href="/remove_from_cart/{{p.id}}">Remove from Cart</a>
+                <h4>{{ product["name"] }} | Qty {{ product["qty"] }} | AED {{ product["price"] * product["qty"] }}</h4>
+                <p>{{ product["description"] }}</p>
+                {% set total.value = total.value + (product["price"] * product["qty"]) %}
+                <a class="add" href="/remove_from_cart/{{product['id']}}">Remove from Cart</a>
             </div>
             
-            {% endfor %}
+           
             
     </div>
     

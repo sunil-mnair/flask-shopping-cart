@@ -36,12 +36,11 @@ db = SQLAlchemy(app)
 from models import *
 
 
-def read_json_file():
-    with open('products.json') as file:
-        data = json.load(file)
+# Load the products data from json to a dictionary
+with open('products.json') as file:
+    products = json.load(file)
 
-    return data
-
+# Check the Session status, create new if does not exist
 def session_check():
     session.permanent = True
     if not 'cart' in session:
@@ -50,27 +49,28 @@ def session_check():
 def show_cart(cart):
     final_cart = []
 
+
     for item in cart:
         c = [(id,qty) for id,qty in item.items()]
         id,qty = c[0][0],c[0][1]
-        final_cart.append({Products.query.get_or_404(int(id)):qty})
+        
+        selected_product = [product for product in products["products"] if product["id"]== str(id)][0]
+        selected_product['qty'] = qty
+        
+        final_cart.append(selected_product)
 
     return final_cart
 
 @app.route("/")
 def index():
     session_check()
-    
-    products = read_json_file()
 
-    
     return render_template("index.html")
 
 @app.route("/view")
 def view():
     session_check()
 
-    products = read_json_file()
     cart = session['cart']
    
     return render_template("view.html",products=products["products"],cart=cart)
@@ -78,7 +78,6 @@ def view():
 @app.route("/add_to_cart/<int:id>",methods=['GET','POST'])
 def add_to_cart(id):
     session_check()
-    products = read_json_file()
 
     product = [product for product in products["products"] if product["id"]== str(id)][0]
     
@@ -101,20 +100,21 @@ def add_to_cart(id):
 def cart():
     
     session_check()
+    
 
     final_cart = show_cart(session["cart"])
-
+    
     return render_template("cart.html",final_cart=final_cart)
 
 
 @app.route("/remove_from_cart/<int:id>",methods=['GET','POST'])
 def remove_from_cart(id):
     session_check()
-    print(session["cart"])
+   
 
     for x,d in enumerate(session['cart'],start=0):
         if [k for k in d if k==str(id)]:
-            print(x)
+            
             break
 
     session["cart"].pop(x)
