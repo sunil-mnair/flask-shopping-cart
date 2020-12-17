@@ -49,7 +49,6 @@ def session_check():
 def show_cart(cart):
     final_cart = []
 
-
     for item in cart:
         c = [(id,qty) for id,qty in item.items()]
         id,qty = c[0][0],c[0][1]
@@ -81,9 +80,11 @@ def add_to_cart(id):
 
     product = [product for product in products["products"] if product["id"]== str(id)][0]
     
+    # if product id does not exist, add it to the cart
     if not any(str(product["id"]) in d for d in session['cart']):
         session['cart'].append({str(product["id"]):1})
 
+    # if product id already exists, increment the cart qty by 1
     elif any(str(product["id"]) in d for d in session['cart']):
         for d in session['cart']:
             qty = [(k,q) for k,q in d.items() if k == str(product["id"])]
@@ -101,7 +102,6 @@ def cart():
     
     session_check()
     
-
     final_cart = show_cart(session["cart"])
     
     return render_template("cart.html",final_cart=final_cart)
@@ -111,10 +111,8 @@ def cart():
 def remove_from_cart(id):
     session_check()
    
-
     for x,d in enumerate(session['cart'],start=0):
         if [k for k in d if k==str(id)]:
-            
             break
 
     session["cart"].pop(x)
@@ -149,6 +147,7 @@ def send_order_confirmation():
 
     msg.html += '</ul>'
 
+    # Enable below command to send the message
     # mail.send(msg)
 
     return redirect(url_for('cart'))
